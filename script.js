@@ -13,6 +13,18 @@ searchInput.addEventListener('keydown', async event => {
         };
     }
 });
+searchBtn.addEventListener('click', async event => {
+    if (searchInput.value !== ''){
+        try{
+            const searchResults = await getSearchResults(searchInput.value);
+            displayResults(searchResults); 
+
+        }
+        catch(error){
+            console.log(error);
+        };
+    }
+})
 
 async function getSearchResults(searchTerm){
     try{
@@ -37,6 +49,9 @@ async function getSearchResults(searchTerm){
 
 function displayResults(searchResults){
     const listOfResults = document.querySelector('.search-results');
+    while(listOfResults.querySelectorAll('.search-result').length !== 0){
+        listOfResults.removeChild(listOfResults.lastChild);
+    }
     console.log(searchResults)
     searchResults.forEach(searchResult => {
         console.log(searchResult)
